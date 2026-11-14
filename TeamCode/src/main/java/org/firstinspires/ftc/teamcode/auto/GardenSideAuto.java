@@ -8,6 +8,11 @@ import static org.firstinspires.ftc.teamcode.Constants.GARDEN_SHOOT_POSE;
 import static org.firstinspires.ftc.teamcode.Constants.INTAKE_GARDEN_HEADING;
 import static org.firstinspires.ftc.teamcode.Constants.INTAKE_GARDEN_VECTOR;
 import static org.firstinspires.ftc.teamcode.Constants.SLOW_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.TO_TOP
+import static org.firstinspires.ftc.teamcode.Constants.TO_LEFT
+import static org.firstinspires.ftc.teamcode.Constants.TO_BOTTOM_RIGHT
+import static org.firstinspires.ftc.teamcode.Constants.PARK_POSE
+import static org.firstinspires.ftc.teamcode.Constants.LOADING_SHOOT_POSE
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -108,8 +113,8 @@ public class gardenSideAuto extends LinearOpMode {
             Actions.runBlocking(
                     drive.actionBuilder(GARDEN_CAMERA_CHECK_POSE)
 
-                            .setTangent(180)
-                            .splineToLinearHeading((GARDEN_SHOOT_POSE), Math.toRadians(180)) // move to garden side
+                            .setTangent(TO_LEFT)
+                            .splineToLinearHeading((GARDEN_SHOOT_POSE), TO_LEFT) // move to garden side
                             .stopAndAdd(() -> feederSubsystem.runIndexerForward()) // pew pew
                             .waitSeconds(feederOnTime)
                             .stopAndAdd(() -> feederSubsystem.stopIndexer()) // stop shooter
@@ -125,8 +130,8 @@ public class gardenSideAuto extends LinearOpMode {
                 Actions.runBlocking(
                         drive.actionBuilder(GARDEN_BEGIN_POSE)
 
-                                .setTangent(Math.toRadians(330))
-                                .splineToLinearHeading(new Pose2d(57, -20, Math.toRadians(180)), Math.toRadians(300))
+                                .setTangent(TO_BOTTOM_RIGHT)
+                                .splineToLinearHeading(PARK_POSE), TO_BOTTOM_RIGHT)
 
                                 .build()
 
@@ -138,14 +143,14 @@ public class gardenSideAuto extends LinearOpMode {
                 // region block 5
                 Actions.runBlocking(
                         drive.actionBuilder(GARDEN_BEGIN_POSE)
-                                .splineToLinearHeading(new Pose2d(40, -45, Math.toRadians(130)), Math.toRadians(250)) //move to loading side
+                                .splineToLinearHeading(LOADING_SHOOT_POSE), TO_BOTTOM_LEFT) //move to loading side
                                 .stopAndAdd(() -> intakeSubsystem.runIntakeForward())
                                 .waitSeconds(3) // intake human player
                                 .stopAndAdd(() -> intakeSubsystem.stopIntake()) // stop intaking
                                 .stopAndAdd(() -> feederSubsystem.runIndexerForward()) // start shooting
                                 .waitSeconds(2) // shoot
                                 .stopAndAdd(() -> feederSubsystem.stopIndexer()) // stop shooting
-                                .splineToLinearHeading(new Pose2d(57, -20, Math.toRadians(180)), Math.toRadians(300)) // park
+                                .splineToLinearHeading(PARK_POSE), TO_BOTTOM_RIGHT) // park
 
                                 .build()
                 );
@@ -156,8 +161,8 @@ public class gardenSideAuto extends LinearOpMode {
         } else {
             // region block 3
             Actions.runBlocking(
-                    drive.actionBuilder(new Pose2d(55, 55, Math.toRadians(220)))
-                            .splineToLinearHeading(new Pose2d(40, -45, Math.toRadians(130)), Math.toRadians(250)) //move to loading side
+                    drive.actionBuilder(GARDEN_CAMERA_CHECK_POSE)
+                            .splineToLinearHeading(LOADING_SHOOT_POSE), TO_BOTTOM_LEFT) //move to loading side
                             .stopAndAdd(() -> feederSubsystem.runIndexerForward())  //shoot
                             .waitSeconds(feederOnTime)
                             .stopAndAdd(() -> feederSubsystem.stopIndexer()) //stop shooting
@@ -173,14 +178,14 @@ public class gardenSideAuto extends LinearOpMode {
             if (cameraTrackingSubsystems.seeApirltag()){
                 // region block 6
                 Actions.runBlocking(
-                        drive.actionBuilder(new Pose2d(40, -45, Math.toRadians(130)))
-                                .setTangent(Math.toRadians(80))
-                                .splineToLinearHeading((GARDEN_BEGIN_POSE), Math.toRadians(160)) //move to garden side
+                        drive.actionBuilder(LOADING_SHOOT_POSE)
+                                .setTangent(TO_TOP)
+                                .splineToLinearHeading((GARDEN_BEGIN_POSE), TO_LEFT) //move to garden side
                                 .stopAndAdd(() -> feederSubsystem.runIndexerForward()) // shoot
                                 .waitSeconds(feederOnTime)
                                 .stopAndAdd(() -> feederSubsystem.stopIndexer()) // stop shooting
-                                .setTangent(Math.toRadians(320))
-                                .splineToLinearHeading(new Pose2d(57, -20, Math.toRadians(180)), Math.toRadians(300)) //park
+                                .setTangent(TO_BOTTOM_RIGHT)
+                                .splineToLinearHeading(PARK_POSE), TO_BOTTOM_RIGHT) //park
 
                                 .build()
                 );
@@ -188,12 +193,12 @@ public class gardenSideAuto extends LinearOpMode {
             } else {
                 // region block 7
                 Actions.runBlocking(
-                        drive.actionBuilder(new Pose2d(40, -45, Math.toRadians(130)))
+                        drive.actionBuilder(LOADING_SHOOT_POSE)
                                 .stopAndAdd(() -> feederSubsystem.runIndexerForward())
                                 .waitSeconds(feederOnTime) // shoot
                                 .stopAndAdd(() -> feederSubsystem.stopIndexer())
                                 .setTangent(Math.toRadians(50))
-                                .splineToLinearHeading(new Pose2d(57, -20, Math.toRadians(180)), Math.toRadians(50)) //park
+                                .splineToLinearHeading(PARK_POSE), TO_TOP_RIGHT) //park
 
                                 .build()
                 );
