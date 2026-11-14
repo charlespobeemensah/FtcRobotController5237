@@ -28,4 +28,6 @@ public class Constants {
     public static final double GARDEN_CAMERA_CHECK_HEADING = Math.toRadians(220);
     public static final Pose2d GARDEN_CAMERA_CHECK_POSE = new Pose2d(55, 55, Math.toRadians(220));
 
+    public static final Pose2d PARK_POSE = new Pose2d(57, -20, Math.toRadians(180);
+
 }
