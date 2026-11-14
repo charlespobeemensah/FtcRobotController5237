@@ -1,14 +1,21 @@
 package com.example.meepmeeptestin.biobuzz;
 
-import static com.example.meepmeeptestin.Constants.GARDEN_BEGIN_POSE;
-import static com.example.meepmeeptestin.Constants.GARDEN_CAMERA_CHECK_HEADING;
-import static com.example.meepmeeptestin.Constants.GARDEN_CAMERA_CHECK_VECTOR;
-import static com.example.meepmeeptestin.Constants.GARDEN_SHOOT_POSE;
-import static com.example.meepmeeptestin.Constants.INTAKE_GARDEN_HEADING;
-import static com.example.meepmeeptestin.Constants.INTAKE_GARDEN_VECTOR;
-import static com.example.meepmeeptestin.Constants.LOADING_SHOOT_POSE;
-import static com.example.meepmeeptestin.Constants.SLOW_VEL;
-import static com.example.meepmeeptestin.Constants.TO_BOTTOM_LEFT;
+import static org.firstinspires.ftc.teamcode.Constants.GARDEN_BEGIN_POSE;
+import static org.firstinspires.ftc.teamcode.Constants.GARDEN_CAMERA_CHECK_HEADING;
+import static org.firstinspires.ftc.teamcode.Constants.GARDEN_CAMERA_CHECK_POSE;
+import static org.firstinspires.ftc.teamcode.Constants.GARDEN_CAMERA_CHECK_VECTOR;
+import static org.firstinspires.ftc.teamcode.Constants.GARDEN_SHOOT_POSE;
+import static org.firstinspires.ftc.teamcode.Constants.INTAKE_GARDEN_HEADING;
+import static org.firstinspires.ftc.teamcode.Constants.INTAKE_GARDEN_VECTOR;
+import static org.firstinspires.ftc.teamcode.Constants.SLOW_VEL;
+import static org.firstinspires.ftc.teamcode.Constants.TO_TOP
+import static org.firstinspires.ftc.teamcode.Constants.TO_LEFT
+import static org.firstinspires.ftc.teamcode.Constants.TO_BOTTOM_RIGHT
+import static org.firstinspires.ftc.teamcode.Constants.PARK_POSE
+import static org.firstinspires.ftc.teamcode.Constants.LOADING_SHOOT_POSE
+import static org.firstinspires.ftc.teamcode.Constants.INTAKE_LOADING_POSE
+import static org.firstinspires.ftc.teamcode.Constants.SLOW_VEL
+import static org.firstinspires.ftc.teamcode.Constants.TO_TOP_RIGHT
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.RaceAction;
@@ -39,7 +46,7 @@ public class MeepMeepBioBuzzTest {
                 .waitSeconds(2) // Shoot
                 .strafeToSplineHeading(INTAKE_GARDEN_VECTOR, INTAKE_GARDEN_HEADING, SLOW_VEL) // Intake
                 .setTangent(TO_BOTTOM_LEFT)
-                .strafeToLinearHeading(GARDEN_CAMERA_CHECK_VECTOR,GARDEN_CAMERA_CHECK_HEADING)
+                .strafeToLinearHeading(GARDEN_CAMERA_CHECK_VECTOR, GARDEN_CAMERA_CHECK_HEADING)
                 .waitSeconds(1)
                 // endregion
 
@@ -81,8 +88,8 @@ public class MeepMeepBioBuzzTest {
                 // endregion
                 // region block 6.1
                 .waitSeconds(1) // shoot
-                .setTangent(Math.toRadians(50))
-                .splineToLinearHeading(new Pose2d(60.0, -34, Math.toRadians(90)), Math.toRadians(50), new TranslationalVelConstraint(15.0)) // intake
+                .setTangent(TO_TOP_RIGHT)
+                .splineToLinearHeading(INTAKE_LOADING_POSE, TO_TOP_RIGHT, SLOW_VEL) // intake
                 .waitSeconds(1) // intake
 
                 .splineToLinearHeading(new Pose2d(40, -45, Math.toRadians(130)), Math.toRadians(220)) // shoot
